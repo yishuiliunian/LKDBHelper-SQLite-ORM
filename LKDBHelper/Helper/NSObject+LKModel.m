@@ -194,13 +194,7 @@ static char LKModelBase_Key_Inserting;
         returnValue = filename;
     }
     else if ([value isKindOfClass:[NSData class]]) {
-        long random = arc4random();
-        long date = [[NSDate date] timeIntervalSince1970];
-        NSString *filename = [NSString stringWithFormat:@"data%ld%ld", date & 0xFFFFF, random & 0xFFF];
-
-        [value writeToFile:[self.class getDBDataPathWithName:filename] atomically:YES];
-
-        returnValue = filename;
+        returnValue = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
     }
     else if ([value isKindOfClass:[NSURL class]]) {
         returnValue = [value absoluteString];
@@ -362,10 +356,10 @@ static char LKModelBase_Key_Inserting;
         }
     }
     else if ([columnClass isSubclassOfClass:[NSData class]]) {
-        NSString *filename = value;
-        NSString *filepath = [self.class getDBDataPathWithName:filename];
-        if ([LKDBUtils isFileExists:filepath]) {
-            modelValue = [NSData dataWithContentsOfFile:filepath];
+        if ([value isKindOfClass:[NSString class]]) {
+            modelValue = [(NSString*)value dataUsingEncoding:NSUTF8StringEncoding];
+        }else {
+            modelValue = nil;
         }
     }
     else if ([columnClass isSubclassOfClass:[NSURL class]]) {
