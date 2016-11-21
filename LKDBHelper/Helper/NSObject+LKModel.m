@@ -359,7 +359,7 @@ static char LKModelBase_Key_Inserting;
         if ([value isKindOfClass:[NSString class]]) {
             modelValue = [[NSData alloc] initWithBase64Encoding:value];
         }else {
-            modelValue = nil;
+            modelValue = @"";
         }
     }
     else if ([columnClass isSubclassOfClass:[NSURL class]]) {
