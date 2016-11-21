@@ -194,7 +194,7 @@ static char LKModelBase_Key_Inserting;
         returnValue = filename;
     }
     else if ([value isKindOfClass:[NSData class]]) {
-        returnValue = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        returnValue = [value base64EncodedStringWithOptions:0];
     }
     else if ([value isKindOfClass:[NSURL class]]) {
         returnValue = [value absoluteString];
@@ -357,7 +357,7 @@ static char LKModelBase_Key_Inserting;
     }
     else if ([columnClass isSubclassOfClass:[NSData class]]) {
         if ([value isKindOfClass:[NSString class]]) {
-            modelValue = [(NSString*)value dataUsingEncoding:NSUTF8StringEncoding];
+            modelValue = [[NSData alloc] initWithBase64Encoding:value];
         }else {
             modelValue = nil;
         }
