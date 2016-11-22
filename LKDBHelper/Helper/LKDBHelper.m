@@ -1388,7 +1388,7 @@ static BOOL LKDBNullIsEmptyString = NO;
     }
     
 #ifdef DEBUG
-    NSLog(@"UPDATE SQL : [%@] \n [%@]",updateSQL, updateValues);
+//    NSLog(@"UPDATE SQL : [%@] \n [%@]",updateSQL, updateValues);
 #endif
 
     BOOL execute = [self executeSQL:updateSQL arguments:updateValues];
